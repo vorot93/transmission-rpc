@@ -1,3 +1,4 @@
+use super::Encryption;
 use serde::Deserialize;
 use serde_repr::*;
 
@@ -17,13 +18,60 @@ pub trait RpcResponseArgument {}
 #[derive(Deserialize, Debug, Clone)]
 #[serde(rename_all = "kebab-case")]
 pub struct SessionGet {
+    pub alt_speed_down: i64,
+    pub alt_speed_enabled: bool,
+    pub alt_speed_time_begin: i64,
+    pub alt_speed_time_delay: i64,
+    pub alt_speed_time_enabled: bool,
+    pub alt_speed_time_end: i64,
     pub blocklist_enabled: bool,
+    pub blocklist_size: usize,
+    pub blocklist_url: String,
+    pub cache_size_mb: isize,
+    pub config_dir: String,
+    pub default_trackers: Vec<String>,
+    pub dht_enabled: bool,
     pub download_dir: String,
-    pub encryption: String,
+    pub download_queue_enabled: bool,
+    pub download_queue_size: isize,
+    pub encryption: Encryption,
+    pub idle_seeding_limit_enabled: bool,
+    pub idle_seeding_limit: isize,
+    pub incomplete_dir_enabled: bool,
+    pub incomplete_dir: String,
+    pub lpd_enabled: bool,
+    pub peer_limit_global: isize,
+    pub peer_limit_per_torrent: isize,
+    pub peer_port_random_on_start: bool,
+    pub peer_port: u16,
+    pub pex_enabled: bool,
+    pub port_forwarding_enabled: bool,
+    pub queue_stalled_enabled: bool,
+    pub queue_stalled_minutes: isize,
+    pub rename_partial_files: bool,
     pub rpc_version: i32,
     pub rpc_version_minimum: i32,
+    pub rpc_version_semver: semver::Version,
+    pub script_torrent_added_enabled: bool,
+    pub script_torrent_added_filename: String,
+    pub script_torrent_done_enabled: bool,
+    pub script_torrent_done_filename: String,
+    pub script_torrent_done_seeding_enabled: bool,
+    pub script_torrent_done_seeding_filename: String,
+    pub seed_queue_enabled: bool,
+    pub seed_queue_size: isize,
+    pub seed_ratio_limit: f64,
+    pub seed_ratio_limited: bool,
+    pub speed_limit_down: isize,
+    pub speed_limit_down_enabled: bool,
+    pub speed_limit_up: isize,
+    pub speed_limit_up_enabled: bool,
+    pub start_added_torrents: bool,
+    pub trash_original_torrent_files: bool,
+    pub utp_enabled: bool,
     pub version: String,
 }
+
 impl RpcResponseArgument for SessionGet {}
 
 #[derive(Deserialize, Debug, Clone)]

@@ -9,10 +9,20 @@ pub struct BasicAuth {
     pub password: String,
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, Copy)]
+#[serde(rename_all = "camelCase")]
+pub enum Encryption {
+    Required,
+    Preferred,
+    Tolerated,
+}
+
+use serde::{Deserialize, Serialize};
+
 pub(crate) use self::request::RpcRequest;
 pub use self::request::{
-    ArgumentFields, Id, TorrentAction, TorrentAddArgs, TorrentGetField, TorrentRenamePathArgs,
-    TorrentSetArgs, TrackerList,
+    ArgumentFields, Id, SessionSetArgs, TorrentAction, TorrentAddArgs, TorrentGetField,
+    TorrentRenamePathArgs, TorrentSetArgs, TrackerList,
 };
 
 pub(crate) use self::response::RpcResponseArgument;

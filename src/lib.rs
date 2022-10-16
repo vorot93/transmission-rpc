@@ -3,17 +3,16 @@ extern crate env_logger;
 extern crate log;
 extern crate reqwest;
 
-use reqwest::{header::CONTENT_TYPE, Url};
-use reqwest::{Client, StatusCode};
+use reqwest::{header::CONTENT_TYPE, Client, StatusCode, Url};
 use serde::de::DeserializeOwned;
 
 pub mod types;
 
 use types::{
     BasicAuth, BlocklistUpdate, FreeSpace, Id, Nothing, PortTest, Result, RpcRequest, RpcResponse,
-    RpcResponseArgument, SessionClose, SessionGet, SessionStats, Torrent, TorrentAction,
-    TorrentAddArgs, TorrentAddedOrDuplicate, TorrentGetField, TorrentRenamePath, TorrentSetArgs,
-    Torrents,
+    RpcResponseArgument, SessionClose, SessionGet, SessionSetArgs, SessionStats, Torrent,
+    TorrentAction, TorrentAddArgs, TorrentAddedOrDuplicate, TorrentGetField, TorrentRenamePath,
+    TorrentSetArgs, Torrents,
 };
 
 const MAX_RETRIES: usize = 5;
@@ -111,6 +110,10 @@ impl TransClient {
     /// ```
     pub async fn session_get(&mut self) -> Result<RpcResponse<SessionGet>> {
         self.call(RpcRequest::session_get()).await
+    }
+
+    pub async fn session_set(&mut self, args: SessionSetArgs) -> Result<RpcResponse<Nothing>> {
+        self.call(RpcRequest::session_set(args)).await
     }
 
     /// Performs a session stats call
